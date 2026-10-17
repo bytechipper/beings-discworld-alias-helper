@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Being's Discworld Alias Helper</title>
+    <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+    <main class="panel">
+        <div class="search-row">
+            <input id="search" type="search" placeholder="Search alias names…" aria-label="Search alias names" autocomplete="off">
+            <button class="btn" id="clear-search" aria-label="Clear name search">Clear</button>
+        </div>
+        <div class="search-row">
+            <input id="content-search" type="search" placeholder="Search alias content…" aria-label="Search alias content" autocomplete="off">
+            <button class="btn" id="clear-content-search" aria-label="Clear content search">Clear</button>
+        </div>
+        <div class="category-row">
+            <label for="category-filter">Category</label>
+            <select id="category-filter"><option value="">All categories</option></select>
+        </div>
+        <section class="section recorder-section" aria-label="Alias recorder controls">
+            <div class="recorder-info">
+                <span class="recorder-title">Alias Helper</span>
+                <span id="status" role="status">Loading…</span>
+            </div>
+            <div class="recorder-buttons">
+                <button class="btn" id="start" disabled>Start record</button>
+                <button class="btn" id="stop" disabled>Stop record</button>
+            </div>
+        </section>
+        <p class="hint" id="character" role="status">Waiting for login…</p>
+        <p class="hint instructions">Press Start record, type <code>alias</code> in the MUD, then press Stop record when the list finishes.</p>
+        <button class="btn" id="add" disabled>Add new alias</button>
+        <p id="notice" role="status" hidden></p>
+        <section class="section">
+            <div class="section-header">Aliases <span id="count">0</span></div>
+            <p class="hint" id="empty">No aliases recorded yet.</p>
+            <ul id="aliases" aria-label="Saved aliases"></ul>
+        </section>
+    </main>
+    <dialog id="editor" aria-labelledby="editor-title">
+        <form id="alias-form">
+            <h1 id="editor-title">Alias</h1>
+            <label for="alias-name">Name</label>
+            <input id="alias-name" autocomplete="off" required spellcheck="false">
+            <label for="alias-category">Category</label>
+            <input id="alias-category" list="category-options" autocomplete="off" required aria-describedby="category-help">
+            <datalist id="category-options"></datalist>
+            <p class="hint" id="category-help">Choose a recorded category or type a new one. Use default for uncategorised aliases.</p>
+            <label for="alias-content">Content</label>
+            <textarea id="alias-content" rows="9" required spellcheck="false" aria-describedby="content-help"></textarea>
+            <p class="hint" id="content-help">One line; separate commands with semicolons. MUD arguments such as $*$ are kept as written.</p>
+            <p id="editor-error" role="alert" hidden></p>
+            <div id="delete-confirmation" hidden>
+                <p id="delete-question"></p>
+                <div class="button-row">
+                    <button class="btn danger" id="confirm-delete" type="button">Yes, delete alias</button>
+                    <button class="btn" id="cancel-delete" type="button">Keep alias</button>
+                </div>
+            </div>
+            <div class="button-row" id="editor-actions">
+                <button class="btn" id="save" type="submit">Save to MUD</button>
+                <button class="btn danger" id="delete" type="button">Delete alias</button>
+                <button class="btn" id="close" type="button">Cancel</button>
+            </div>
+        </form>
+    </dialog>
+    <script src="panel.js"></script>
+</body>
+</html>
